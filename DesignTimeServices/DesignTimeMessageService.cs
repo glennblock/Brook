@@ -9,9 +9,9 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using BrookSample;
-using ViewModelAssist.Mef;
+using Brook.Mef;
 using System.ComponentModel.Composition;
-using ViewModelAssist;
+using Brook;
 
 namespace DesignTimeServices
 {

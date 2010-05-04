@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel.Composition;
-using ViewModelAssist.Mef;
+using Brook.Mef;
 
 namespace BrookSample
 {

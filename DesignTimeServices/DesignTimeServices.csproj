@@ -68,7 +68,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ViewModelSample\BrookSample.csproj">
+    <ProjectReference Include="..\BrookSample\BrookSample.csproj">
       <Project>{30C018D8-C39D-45FC-B965-BC1B30221C0B}</Project>
       <Name>BrookSample</Name>
       <Private>False</Private>
