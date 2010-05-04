@@ -6,6 +6,7 @@ _ReSharper.*
 *.resharper
 *.suo
 *.cache
+*.dll
 *~
 *.swp
 /Build
