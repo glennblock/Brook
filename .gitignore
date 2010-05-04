@@ -1,5 +1,7 @@
 obj
 bin
+bin/debug
+bin/release
 _ReSharper.*
 *.csproj.user
 *.resharper.user
@@ -7,6 +9,8 @@ _ReSharper.*
 *.suo
 *.cache
 *.dll
+*.pdb
 *~
 *.swp
 /Build
+
