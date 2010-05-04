@@ -1,3 +1,6 @@
+Brook wires up views to view models both at design time (in Blend) and at runtime. Wiring up of views is achieved through a simple attached property. Brook uses a convention based approach to do the wireup with it's storng point bieng blendability.
+
+
 1. Run Build.cmd
 2. Open Expression Blend 4 and then BrookSample.sln from within Blend.
 3. Open MainPage or MainPageView and you will see it's VM is injected into it with a design time service which displays "Design time"
