@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.ComponentModel;
 
 namespace Brook
 {
@@ -20,20 +21,28 @@ namespace Brook
                 {
                     var element = (FrameworkElement)s;
                     //element.SetValue(DesignTimeData);
-                    var view = (string) e.NewValue;
-                    if (view == "")
+                    string view = null;
+                    if (DesignerProperties.IsInDesignTool)
                     {
-                        if (s is ViewElement)
-                        {
-                            var parentType = element.Parent.GetType();
-                            view = parentType.FullName;
-                        }
-                        else
-                            view = s.GetType().FullName;
+                        view = (string)e.NewValue;
+                        var locator = new Locator();
+                        var initializer = new ViewModelInitializer(locator.GetViewModel);
                     }
-                    element.DataContext = ModelResolver._resolver.Resolve(view);
+                    else
+                        view = s.GetType().FullName;
+
+                    WireViewModel(element, view);
+                    
                 }
                                                                                           ));
         
+        private static void WireViewModel(FrameworkElement element, string view)
+        {
+            element.DataContext = ModelResolver._resolver.Resolve(element, view);
+        }
+    
+    
     }
+
+
 }

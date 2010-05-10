@@ -56,14 +56,11 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DesignTimeAssembly.cs" />
-    <Compile Include="DesignTimeViewModelAttribute.cs" />
     <Compile Include="Locator.cs" />
     <Compile Include="ModelResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResolutionStrategy.cs" />
     <Compile Include="View.cs" />
-    <Compile Include="ViewElement.cs" />
     <Compile Include="ViewModelInitializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Markup;
+using System.Windows;
 
 namespace Brook
 {
-    [ContentProperty("DesignTimeAssemblies")]
-    public abstract class ViewModelInitializer
+    public class ViewModelInitializer
     {
-        private List<ResolutionStrategy> _strategies;
+        private static List<ResolutionStrategy> _strategies;
 
-        public ViewModelInitializer(Func<string,object> locator, params ResolutionStrategy[] strategies)
+        public ViewModelInitializer(Func<FrameworkElement, string,object> locator, params ResolutionStrategy[] strategies)
         {
             if (!strategies.Any())
             {
@@ -40,14 +40,6 @@ namespace Brook
 
             var resolver = new ModelResolver(locator, _strategies);
             ModelResolver.SetResolver(resolver);
-            DesignTimeAssemblies = new List<DesignTimeAssembly>();
-        }
-
-        public List<DesignTimeAssembly> DesignTimeAssemblies { get; set; }
-
-        internal IEnumerable<string> GetDesignTimeAssemblyPaths()
-        {
-            return DesignTimeAssemblies.Select(dc => dc.Name);
         }
     }
 }

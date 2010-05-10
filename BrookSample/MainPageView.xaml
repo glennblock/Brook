@@ -6,8 +6,9 @@
     xmlns:v="clr-namespace:Brook;assembly=Brook"
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="400"
-    v:View.Name="ViewModelSample.MainPage">         
-    <Grid x:Name="LayoutRoot" Background="White">
+             v:View.Name="MainPageView"
+    >
+    <Grid x:Name="LayoutRoot" Background="White" >
         <TextBlock HorizontalAlignment="Center" FontSize="24" Text="{Binding Message}"/>
     </Grid>
 </UserControl>

@@ -9,14 +9,17 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel.Composition;
-using Brook.Mef;
 
 namespace BrookSample
 {
-
-    [ViewModel(Name="ViewModelSample.MainPageViewModel")]
+    [Export]
     public class MainPageViewModel
     {
+        public MainPageViewModel() : this(new RuntimeMessageService())
+        {
+            
+        }
+        
         [ImportingConstructor]
         public MainPageViewModel(IMessageService messageService)
         {
@@ -25,5 +28,4 @@ namespace BrookSample
 
         public string Message { get; set; } 
     }
-
 }

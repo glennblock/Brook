@@ -1,21 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 
 namespace Brook
 {
     public class ModelResolver
     {
-        private IList<ResolutionStrategy> _resolutionStrategies;
-        private Func<string, object> _locator;
+        private static IList<ResolutionStrategy> _resolutionStrategies;
+        private Func<FrameworkElement, string, object> _locator;
 
-        public ModelResolver(Func<string, object> locator, IList<ResolutionStrategy> resolutionStrategies)
+        public ModelResolver(Func<FrameworkElement, string, object> locator, IList<ResolutionStrategy> resolutionStrategies)
         {
             _locator = locator;
             _resolutionStrategies = resolutionStrategies;
         }
 
-        public object Resolve(string viewName)
+        public object Resolve(FrameworkElement view, string viewName)
         {
             string viewModelName = null;
             var strategies = _resolutionStrategies.AsEnumerable().Reverse();
@@ -29,7 +30,7 @@ namespace Brook
             }
 
             if (viewModelName != null)
-                return _locator(viewModelName);
+                return _locator(view, viewModelName);
             else
                 return null;
         }

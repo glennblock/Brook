@@ -9,27 +9,40 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using Brook.Mef;
 using System.ComponentModel.Composition.Hosting;
+using Brook;
+using Brook.Mef;
 
 namespace BrookSample
 {
     public partial class App : Application
     {
+        private const bool UseMeF = false;
 
         public App()
         {
             this.Startup += this.Application_Startup;
             this.Exit += this.Application_Exit;
             this.UnhandledException += this.Application_UnhandledException;
-            var container = new CompositionContainer(new AssemblyCatalog(typeof(App).Assembly));
-            MefLocator.SetCompositionContainer(container);
+            
+            if (!UseMeF)
+            {
+                var locator = new Locator();
+                var initializer = new ViewModelInitializer(locator.GetViewModel);
+            }
+            else
+            {
+                var initializer = new MefViewModelInitializer();
+                var container = new CompositionContainer(new AssemblyCatalog(typeof(App).Assembly));
+                MefLocator.SetCompositionContainer(container);
+            }
+
             InitializeComponent();
         }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            this.RootVisual = new MainPage(); // VM is injected in Blend and at Runtime
+            this.RootVisual = new MainPageView(); // VM is injected in Blend and at Runtime
             // this.RootVisual = new MainPageView() - VM is injected only at runtime
         }
 

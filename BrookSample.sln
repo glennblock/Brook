@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrookSample", "BrookSample\BrookSample.csproj", "{30C018D8-C39D-45FC-B965-BC1B30221C0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesignTimeServices", "DesignTimeServices\DesignTimeServices.csproj", "{E610DFAE-AF6C-4F38-BDD4-910CBBDA7BB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrookSample.Design", "BrookSample.Design\BrookSample.Design.csproj", "{E610DFAE-AF6C-4F38-BDD4-910CBBDA7BB2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

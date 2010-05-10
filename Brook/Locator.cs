@@ -16,35 +16,38 @@ using System.ComponentModel;
 
 namespace Brook
 {
-    public abstract class Locator
+    public class Locator
     {
-        private IDictionary<string,Type> _viewModelTypeMapping;
-
+        private IDictionary<string, Type> _viewModelTypeMapping;
         public Locator()
         {
-            
+
         }
 
-        private IDictionary<string,Type> GetViewModelTypeMapping(IEnumerable<string> designTimeAssemblies)
+        private IDictionary<string, Type> GetViewModelTypeMapping()
         {
             dynamic appDomain = AppDomain.CurrentDomain;
             var assemblies = (Assembly[])appDomain.GetAssemblies();
             var mapping = new Dictionary<string, Type>();
             
-            foreach (var assemblyName in designTimeAssemblies)
+
+            var designTimeAssemblies =
+                assemblies.Where(a => a.FullName.Contains("Design,")).OrderBy(a => a.FullName).OrderBy(
+                    a => File.GetLastWriteTime(a.Location)).Reverse();
+
+            string lastAssembly = null;
+            foreach (var assembly in designTimeAssemblies)
             {
-                var assembly = assemblies.Where(a => a.FullName.StartsWith(assemblyName)).OrderBy(a => File.GetLastWriteTime(a.Location)).FirstOrDefault();
-                if (assembly != null)
+                if (assembly.FullName != lastAssembly)
                 {
-                    var types = assembly.GetTypes();
-                    foreach(var type in types)
+                    var types = assembly.GetTypes().Where(t=>t.Name.EndsWith("Design"));
+                    foreach (var type in types)
                     {
-                        var viewModelAttribute = type.GetCustomAttributes(typeof(DesignTimeViewModelAttribute), false).Cast<DesignTimeViewModelAttribute>().SingleOrDefault();
-                        if (viewModelAttribute != null)
-                            mapping[viewModelAttribute.Name] = type;
+                        var viewModelName = type.Name.Substring(0, type.Name.Length - "Design".Length);
+                        mapping[viewModelName] = type;
                     }
-                    
                 }
+                lastAssembly = assembly.FullName;
             }
             return mapping;
         }
@@ -53,8 +56,9 @@ namespace Brook
         {
             if (_viewModelTypeMapping == null)
             {
-                var init = (ViewModelInitializer)Application.Current.Resources["init"];
-                _viewModelTypeMapping = GetViewModelTypeMapping(init.GetDesignTimeAssemblyPaths());
+                _viewModelTypeMapping = GetViewModelTypeMapping();
+                var resolver = new ModelResolver(this.GetViewModel, null);
+                ModelResolver.SetResolver(resolver);
             }
 
             Type viewModelType = null;
@@ -65,17 +69,18 @@ namespace Brook
                 return null;
         }
 
-        protected virtual object GetRuntimeViewModel(string name)
+        protected virtual object GetRuntimeViewModel(FrameworkElement view, string name)
         {
-            return null;
+            var viewModelType = view.GetType().Assembly.GetType(name);
+            return Activator.CreateInstance(viewModelType);
         }
 
-        public object GetViewModel(string name)
+        public object GetViewModel(FrameworkElement view, string name)
         {
-            if (!DesignerProperties.IsInDesignTool)
-                return GetRuntimeViewModel(name);
-            else
+            if (DesignerProperties.IsInDesignTool)
                 return GetDesignTimeViewModel(name);
+            else
+                return GetRuntimeViewModel(view, name);
         }
     }
 }

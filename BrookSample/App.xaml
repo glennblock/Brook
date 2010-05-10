@@ -1,15 +1,5 @@
 ﻿<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
              x:Class="BrookSample.App"
-             xmlns:m="clr-namespace:Brook.Mef;assembly=Brook.Mef"
-             xmlns:v="clr-namespace:Brook;assembly=Brook"
              >
-    <Application.Resources>
-        <m:MefViewModelInitializer x:Key="init">
-            <m:MefViewModelInitializer.DesignTimeAssemblies>
-                <v:DesignTimeAssembly Name="ViewModelSample"/>
-                <v:DesignTimeAssembly Name="DesignTimeServices"/>
-            </m:MefViewModelInitializer.DesignTimeAssemblies>
-        </m:MefViewModelInitializer>
-    </Application.Resources>
 </Application>

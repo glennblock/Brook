@@ -20,12 +20,6 @@ using System.ComponentModel.Composition.Primitives;
 
 namespace Brook.Mef
 {
-    public interface IViewModelMetadata
-    {
-        string Name { get; }
-        bool IsDesignTime { get; }
-    }
-
     public class MefLocator : Locator
     {
         public static void SetCompositionContainer(CompositionContainer container)
@@ -40,23 +34,9 @@ namespace Brook.Mef
             
         }
 
-        protected override object GetRuntimeViewModel(string name)
+        protected override object GetRuntimeViewModel(FrameworkElement view, string name)
         {
-            var viewModelContract = "ViewModel";
-            var viewModelTypeIdentity = AttributedModelServices.GetTypeIdentity(typeof (object));
-            var requiredMetadata = new Dictionary<string, Type>();
-            requiredMetadata["Name"] = typeof (string);
-
-            var definition = new ContractBasedImportDefinition(viewModelContract, viewModelTypeIdentity,
-                                                               requiredMetadata, ImportCardinality.ZeroOrMore, false,
-                                                               false, CreationPolicy.NonShared);
-
-            var vmExports = _container.GetExports(definition);
-            var vmExport =
-                vmExports.Single(e => e.Metadata["Name"].Equals(name));
-            if (vmExport != null)
-                return vmExport.Value;
-            return null;
+            return _container.GetExportedValue<object>(name);
         }
     }
 }

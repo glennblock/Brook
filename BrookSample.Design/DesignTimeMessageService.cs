@@ -9,16 +9,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using BrookSample;
-using Brook.Mef;
 using System.ComponentModel.Composition;
-using Brook;
 
-namespace DesignTimeServices
+namespace BrookSample
 {
-    [DesignTimeViewModel(Name = "ViewModelSample.MainPageViewModel")]
-    public class MainPageViewModelDesignTime : MainPageViewModel
+    public class MainPageViewModelDesign : MainPageViewModel
     {
-        public MainPageViewModelDesignTime()
+        public MainPageViewModelDesign()
             :base(new DesignTimeMessageService())
         {
         }

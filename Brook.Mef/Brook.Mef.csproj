@@ -61,7 +61,6 @@
     <Compile Include="MefLocator.cs" />
     <Compile Include="MefViewModelInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModelAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Brook\Brook.csproj">
