@@ -9,7 +9,7 @@ Brook wires up views to view models both at design time (in Blend) and at runtim
 Solutions:
 
 Brook.sln - Builds the Brook framework. Also includes BlendLauncher for step-through debugging of design time executing code.
-BrookSample.sln - contains a very simple sample (stupidly simply) using Brook to wire up VMs
+BrookSample.sln - contains a very simple sample (stupidly simply) using Brook to wire up VMs. Uses pure reflection (no attributes need) or MEF depending on if the UseMef flag is set.
 
 
 Projects:
