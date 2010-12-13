@@ -1,4 +1,4 @@
-Brook wires up views to view models both at design time (in Blend) and at runtime. Wiring up of views is achieved through a simple attached property. Brook uses a convention based approach to do the wireup with it's storng point bieng blendability.
+Brook wires up views to view models both at design time (in Blend) and at runtime. Wiring up of views is achieved through a simple attached property. Brook uses a convention based approach to do the wireup with it's strong point being blendability.
 
 
 1. Run Build.cmd
